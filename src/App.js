@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Navibar from './components/Navibar';
+import Homepage from './components/Homepage';
+import Caregvrbooking from './components/Caregvrbooking';
+import Footer from './components/Footer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const [selectedBooking, setSelectedBooking] = useState(null);
+
+  const handleBookingSelect = (booking) => {
+    setSelectedBooking(booking);
+  };
+
+  // Function to handle language change
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navibar changeLanguage={changeLanguage} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Homepage
+                title={t('welcome')}
+                trustMessage={t('trust_message')}
+                buttonText={t('book_caregiver')}
+              />
+            }
+          />
+          <Route
+            path="/book"
+            element={<Caregvrbooking onBookingSelect={handleBookingSelect} />}
+          />
+        </Routes>
+        <Footer
+          footerText={t('footer_text')}
+          contactText={t('contact_us')}
+          email={t('email')}
+        />
+      </div>
+    </Router>
   );
 }
 
