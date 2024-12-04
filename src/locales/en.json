@@ -22,7 +22,7 @@
     "select": "Select",
     "booking_confirmed": "Booking Confirmed",
     "caregiver_confirmed": "You have confirmed the caregiver for",
-    "client_name": "Client Name",
+    "caregiver_name": "Caregiver Name",
     "confirm_caregiver": "Confirm Caregiver Selection",
     "elderly_assistance": "Elderly Assistance",
     "childcare": "Childcare",

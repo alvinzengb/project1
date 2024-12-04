@@ -20,13 +20,14 @@ const CaregiverBooking = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
 
   const handleFilterChange = (name, value) => {
+    console.log(name, value)
     setFilters({ ...filters, [name]: value });
   };
 
   const handleSearch = () => {
     const filteredResults = bookingsData.filter((booking) => {
       const matchesName = filters.name
-        ? booking.clientName.toLowerCase().includes(filters.name.toLowerCase())
+        ? booking.name.toLowerCase().includes(filters.name.toLowerCase())
         : true;
 
       const matchesLocation = filters.location
@@ -52,7 +53,7 @@ const CaregiverBooking = () => {
   const handleConfirm = () => {
     Modal.success({
       title: t("booking_confirmed"),
-      content: `${t("caregiver_confirmed")} ${selectedBooking?.clientName || t("anonymous")}.`,
+      content: `${t("caregiver_confirmed")} ${selectedBooking?.name || t("anonymous")}.`,
     });
     setSelectedBooking(null);
   };
@@ -153,7 +154,7 @@ const CaregiverBooking = () => {
           {selectedBooking && (
             <div>
               <p>
-                <strong>{t("client_name")}:</strong> {selectedBooking.clientName || t("anonymous")}
+                <strong>{t("caregiver_name")}:</strong> {selectedBooking.name || t("anonymous")}
               </p>
               <p>
                 <strong>{t("date")}:</strong> {selectedBooking.date}
